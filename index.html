@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TODO</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+	</head>
+	<body>
+	<div class="container-fluid pt-5">
+		<div class="d-flex w-50 m-auto">
+			<div class="btn-group w-100">
+				<input type="text" class="form-control" placeholder="Write your item"/>
+				<button id="addItem" class="btn btn-primary">Add</button>
+			</div>
+		</div>
+		<ul class="list-group mt-5" id="todo">
+			<li class="list-group-item">Pasta</li>
+			<li class="list-group-item">Rice</li>
+			<li class="list-group-item">Bread</li>
+		</ul>
+	</div>
+		
+		
+	</body>
+	<script>
+        // DOM selection
+		 let addButton = document.querySelector("#addItem");
+		 let additem = document.querySelector("input[type='text']");
+		 let listUl = document.querySelector("#todo");
+		 let listLi = listUl.children;
+        //  Add remove button function
+		 function attach(li){
+			let remove = document.createElement("button");
+			remove.textContent = "X";
+			remove.className = "btn float-right btn-outline-dark";
+			li.appendChild(remove);
+		 }
+        //  Add remove button to all the list item
+		 for(let i = 0; i < listLi.length; i += 1){
+			 attach(listLi[i]);
+		 }
+        //  Add list item
+		 addButton.addEventListener("click",function(){
+             let inputValue = additem.value;
+             if(inputValue != ""){
+                let ul = document.querySelector("ul");
+                let li = document.createElement("li");
+                li.className = "list-group-item";
+                li.innerHTML = additem.value;
+                attach(li);
+                // Add item to the top
+                ul.insertBefore(li,ul.childNodes[0]);
+                additem.value = "";
+             }else{
+                alert("Please input your list item!");
+             }
+			 
+		 });
+		//  Remove list item
+		 listUl.addEventListener("click",(evn)=>{
+			 if(evn.target.tagName == "BUTTON"){
+				 let rmvButton = evn.target;
+				 let li = rmvButton.parentNode;
+				 let ul = li.parentNode;
+				 ul.removeChild(li);
+			 }
+			 
+		 });
+		 
+		 
+	</script>
+</html>
